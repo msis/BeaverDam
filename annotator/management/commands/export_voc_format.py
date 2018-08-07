@@ -134,11 +134,13 @@ the current timestamp.
 				width, height = image.size
 				writer = Writer(jpg_outpath, width, height)
 
-
 				if frame_objects[idx]:
 					for obj in frame_objects[idx]:
-						writer.addObject(obj['type'], obj['x_min'], obj['y_min'], 
-								obj['x_max'], obj['y_max'])
+						writer.addObject(obj['type'], 
+								obj['x_min'] if obj['x_min'] <= width else width,
+								obj['y_min'] if obj['y_min'] <= height else height,
+								obj['x_max'] if obj['x_max'] <= width else width,
+								obj['y_max'] if obj['y_max'] <= height else height)
 				writer.save(xml_outpath)
 
 		print('--Saved Pascal VOC of {} to {}'.format(video.id, options['out_dir']))
