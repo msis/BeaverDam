@@ -162,6 +162,8 @@ If an image contains no labels, it can be added as negative examaple.
 						x_max = max(0, min(obj['x_max'], width))
 						y_min = max(0, min(obj['y_min'], height))
 						y_max = max(0, min(obj['y_max'], height))
+						if x_min == x_max or y_min == y_max:
+							continue
 						writer.writerow([jpg_outpath,
 								 x_min, y_min, x_max, y_max,
 								 obj['type']])
